@@ -1,5 +1,5 @@
 * {
-    background-color: rgb(133, 93, 170);
+    background-color: white;
 }
 
 h1 {
@@ -8,4 +8,18 @@ h1 {
     padding: 10px;
     text-align: center;
     font-size: 50px;
+}
+
+.start-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.rules {
+    margin: 20px;
+    text-align: center;
+}
+
+.start-btn {
+    font-size: 30px;
 }
