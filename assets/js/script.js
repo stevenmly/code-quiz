@@ -15,19 +15,15 @@ questionObjs = [
         answer: "Object"
     },
     {
-        question: "Examine the following array. var names = ['steven', 'Logan', 'Lindsay', 'Taylor']. How would you select the name 'Lindsay' from the array?",
+        question: "Examine the following array. var names = ['Steven', 'Logan', 'Lindsay', 'Taylor']. How would you select the name 'Lindsay' from the array?",
         choices: ["names[0]", "names[1]", "names[2]", "names[3]"],
         answer: "names[2]"
-    },
-    {
-        question: "",
-        choices: [],
-        answer: 
-    },
+    }
 ]
 
 var timerEl = document.querySelector("#timer")
 var startButtonEL = document.querySelector("#start-btn")
+var quizQuestionsEl = document.querySelector("#quiz-container")
 
 // global variables
 var timer = 0;
@@ -40,6 +36,7 @@ function startQuiz() {
     timer = 60
     score = 0;
     startTimer();
+    showQuestion();
     
 }
 
@@ -54,6 +51,41 @@ function startTimer() {
             timerEl.textContent = 0
         }
     }, 1000);
+}
+
+function showQuestion() {
+
+    newQuestion();
+
+    if (questionNum < questionObjs.length) {
+        var question = document.createElement('h2');
+        question.textContent = questionObjs[questionNum].question;
+        quizQuestionsEl.appendChild(question);
+
+        var answerChoices = document.createElement('ul');
+        quizQuestionsEl.appendChild(answerChoices);
+
+
+        for (i = 0; i < 4; i++) {
+            var answersEl = document.createElement('li');
+            answersEl.textContent = questionObjs[questionNum].choices[i];
+            answerChoices.appendChild(answersEl);
+        }
+
+        answerChoices.addEventListener('click', function() {
+            questionNum++;
+            showQuestion();
+        })
+    
+    }
+}
+
+function newQuestion() {
+    quizQuestionsEl.innerHTML="";
+}
+
+function checkAnswer() {
+    
 }
 
 startQuiz();
