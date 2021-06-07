@@ -25,12 +25,14 @@ var timerEl = document.querySelector("#timer");
 var scoreEL = document.querySelector("#score");
 var startButtonEL = document.querySelector("#start-btn");
 var quizQuestionsEl = document.querySelector("#quiz-container");
+var mainEl = document.querySelector("#main");
 
 // global variables
 var timer = 0;
 var score = 0;
 var questionNum = 0;
 var currentTime;
+var highScores = [];
 
 // function to start quiz
 function startQuiz() {
@@ -84,6 +86,7 @@ function showQuestion() {
         clearInterval(currentTime);
         timerEl.textContent = 0; 
         window.alert("Quiz Completed! Thanks for playing!");
+        endGame();
     }
 }
 
@@ -107,6 +110,51 @@ function checkAnswer() {
     }
 
 }
+
+function endGame() {
+    mainEl.innerHTML="";
+
+    var submitContainerEl = document.createElement("div");
+    submitContainerEl.setAttribute("class", "submit-score");
+    mainEl.appendChild(submitContainerEl);
+
+    var scoreHeaderEl = document.createElement("h2");
+    scoreHeaderEl.textContent = "Please enter your initials"
+    submitContainerEl.appendChild(scoreHeaderEl);
+
+    var initialsLabelEl = document.createElement("label");
+    initialsLabelEl.setAttribute("for","userInitials");
+
+    var initialsInputEl = document.createElement("input");
+    initialsInputEl.setAttribute("id","userInitials");
+    initialsInputEl.setAttribute("name","userInitials");
+    initialsInputEl.setAttribute("maxlength","3");
+    initialsInputEl.setAttribute("size","3");
+
+    var submitButtonEl = document.createElement("button");
+    submitButtonEl.setAttribute("id", "submitBtn");
+    submitButtonEl.textContent = "Submit"
+
+    submitContainerEl.appendChild(initialsLabelEl);
+    submitContainerEl.appendChild(initialsInputEl);
+    submitContainerEl.appendChild(submitButtonEl); 
+
+    var quizScore = {initials: "input", score: score}
+
+    submitButtonEl.addEventListener("click", function() {
+
+        quizScore.initials = document.getElementById("userInitials").value.toUpperCase();
+        quizScore.score = score;
+
+        highScores.push(quizScore)
+
+        localStorage.setItem("highScores", JSON.stringify(highScores))
+
+        showHighScores();
+    })
+    
+}
+
 
 
 
