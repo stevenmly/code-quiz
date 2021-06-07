@@ -21,9 +21,10 @@ questionObjs = [
     }
 ]
 
-var timerEl = document.querySelector("#timer")
-var startButtonEL = document.querySelector("#start-btn")
-var quizQuestionsEl = document.querySelector("#quiz-container")
+var timerEl = document.querySelector("#timer");
+var scoreEL = document.querySelector("#score");
+var startButtonEL = document.querySelector("#start-btn");
+var quizQuestionsEl = document.querySelector("#quiz-container");
 
 // global variables
 var timer = 0;
@@ -69,14 +70,20 @@ function showQuestion() {
         for (i = 0; i < 4; i++) {
             var answersEl = document.createElement('li');
             answersEl.textContent = questionObjs[questionNum].choices[i];
+            answersEl.setAttribute("class", "answer-choice");
             answerChoices.appendChild(answersEl);
         }
 
         answerChoices.addEventListener('click', function() {
+            checkAnswer();
             questionNum++;
             showQuestion();
         })
-    
+    }
+    else {
+        clearInterval(currentTime);
+        timerEl.textContent = 0; 
+        window.alert("Quiz Completed! Thanks for playing!");
     }
 }
 
@@ -85,8 +92,23 @@ function newQuestion() {
 }
 
 function checkAnswer() {
+    var selectEl = event.target;
+
+    if (selectEl.innerHTML === questionObjs[questionNum].answer) {
+        console.log("Correct answer!")
+        score++;
+        scoreEL.textContent = score;
+    }
+     
     
+    else {
+        console.log("Wrong answer!");
+        timer -=10;
+    }
+
 }
+
+
 
 startQuiz();
 
