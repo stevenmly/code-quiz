@@ -12,7 +12,7 @@ h1 {
 
 .start-btn-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .rules {
@@ -20,7 +20,7 @@ h1 {
     text-align: center;
 }
 
-.start-btn {
+.btn {
     font-size: 30px;
 }
 

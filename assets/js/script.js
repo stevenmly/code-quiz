@@ -85,7 +85,7 @@ function showQuestion() {
     else {
         clearInterval(currentTime);
         timerEl.textContent = 0; 
-        window.alert("Quiz Completed! Thanks for playing!");
+        // window.alert("Quiz Completed! Thanks for playing!");
         endGame();
     }
 }
@@ -119,7 +119,7 @@ function endGame() {
     mainEl.appendChild(submitContainerEl);
 
     var scoreHeaderEl = document.createElement("h2");
-    scoreHeaderEl.textContent = "Please enter your initials"
+    scoreHeaderEl.textContent = "Congrats on completing the quiz! You finished with a score of"
     submitContainerEl.appendChild(scoreHeaderEl);
 
     var initialsLabelEl = document.createElement("label");
@@ -155,7 +155,9 @@ function endGame() {
     
 }
 
-
+function showHighScores() {
+    mainEl.innerHTML="";
+}
 
 
 startQuiz();
