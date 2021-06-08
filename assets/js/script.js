@@ -32,7 +32,7 @@ var timer = 0;
 var score = 0;
 var questionNum = 0;
 var currentTime;
-var highScores = [];
+var highScoreList = [];
 
 // function to start quiz
 function startQuiz() {
@@ -52,6 +52,7 @@ function startTimer() {
         else {
             clearInterval(currentTime);
             timerEl.textContent = 0
+            endGame();
         }
     }, 1000);
 }
@@ -118,9 +119,9 @@ function endGame() {
     submitContainerEl.setAttribute("class", "submit-score");
     mainEl.appendChild(submitContainerEl);
 
-    var scoreHeaderEl = document.createElement("h2");
-    scoreHeaderEl.textContent = "Congrats on completing the quiz! You finished with a score of"
-    submitContainerEl.appendChild(scoreHeaderEl);
+    var endGameHeader = document.createElement("h2");
+    endGameHeader.textContent = "The quiz is now over! Please enter your initials"
+    submitContainerEl.appendChild(endGameHeader);
 
     var initialsLabelEl = document.createElement("label");
     initialsLabelEl.setAttribute("for","userInitials");
@@ -146,9 +147,10 @@ function endGame() {
         quizScore.initials = document.getElementById("userInitials").value.toUpperCase();
         quizScore.score = score;
 
-        highScores.push(quizScore)
+        highScoreList.push(quizScore)
+        console.log(highScoreList)
 
-        localStorage.setItem("highScores", JSON.stringify(highScores))
+        localStorage.setItem("highScores", JSON.stringify(highScoreList))
 
         showHighScores();
     })
@@ -157,9 +159,38 @@ function endGame() {
 
 function showHighScores() {
     mainEl.innerHTML="";
+
+    var scoresContainer = document.createElement("div");
+    mainEl.appendChild(scoresContainer);
+    
+    var scoresHeader = document.createElement("h2");
+    scoresHeader.textContent = "High Scores: ";
+    scoresContainer.appendChild(scoresHeader);
+
+    var scoresList = document.createElement("ol");
+    scoresContainer.appendChild(scoresList);
+
+    var storedScores = (localStorage.getItem("highScores"));
+
+    if (storedScores) {
+        //sort scores
+        highScoreList.sort((a, b) => (a.score < b.score) ? 1 : -1);
+
+        //add scores to list
+        for (var i = 0; i < highScoreList.length; i++) {
+
+            var displayScore = document.createElement("li");
+            
+            displayScore.textContent = highScoreList[i].initials + " - " + highScoreList[i].score;
+            displayScore.setAttribute("id", "scoresList");
+            scoresList.appendChild(displayScore);
+        }
+    }
+
 }
 
+startButtonEL.addEventListener("click", startQuiz);
 
-startQuiz();
+
 
 
