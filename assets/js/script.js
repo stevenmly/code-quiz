@@ -25,6 +25,7 @@ var timerContainer = document.querySelector("#timer-container")
 var timerEl = document.querySelector("#timer");
 var scoreEL = document.querySelector("#score");
 var quizContent = document.querySelector("#quiz-content");
+var responseContainer = document.querySelector("#response")
 
 // global variables
 var timer = 0;
@@ -36,6 +37,7 @@ var highScoreList = [];
 
 function homeScreen() {
     clearContent();
+    clearResponses();
     reset();
 
     timerContainer.setAttribute("style", "visibility: hidden;")
@@ -142,10 +144,19 @@ function clearContent() {
     quizContent.innerHTML="";
 }
 
+function clearResponses() {
+    responseContainer.innerHTML="";
+}
+
 function checkAnswer() {
     var selectEl = event.target;
 
     if (selectEl.innerHTML === questionObjs[questionNum].answer) {
+        var quizResponse = document.createElement("h2");
+        quizResponse.setAttribute("class", "align-center");
+        quizResponse.textContent = "Correct!"
+        responseContainer.appendChild(quizResponse);
+        
         console.log("Correct answer!")
         score++;
         console.log(score);
@@ -153,6 +164,10 @@ function checkAnswer() {
      
     
     else {
+        var quizResponse = document.createElement("h2");
+        quizResponse.textContent = "Incorrect!"
+        quizResponse.setAttribute("class", "align-center");
+        responseContainer.appendChild(quizResponse);
         console.log("Wrong answer!");
         timer -=10;
     }
@@ -160,7 +175,9 @@ function checkAnswer() {
 }
 
 function endGame() {
-    quizContent.innerHTML="";
+    clearContent();
+    clearResponses();
+
     timerContainer.setAttribute("style", "visibility: hidden;")
 
     var submitContainer = document.createElement("div");
