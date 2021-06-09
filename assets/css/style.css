@@ -1,27 +1,48 @@
-* {
+/* * {
     background-color: white;
+} */
+
+h1{
+    font-size: 35px;
 }
 
-h1 {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
+
+
+p{ 
+    font-size: 20px;
+    margin: 25px auto;
+    padding: 0 30px;
+}
+
+.btn{
+    background-color: #12a8a8; 
+    border: solid;
+    color: white;
+    padding: 15px 32px;
     text-align: center;
-    font-size: 50px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
-.start-btn-container {
-    display: flex;
-    justify-content: space-evenly;
+input{
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: #12a8a8;
+    width: 20%;
+    height: 30%;
+    margin: 0 10px;
+    font-size: 16px;
+
 }
 
-.rules {
-    margin: 20px;
+.scores-container{
     text-align: center;
+    border: solid;
 }
 
-.btn {
-    font-size: 30px;
+.container{
+    text-align: center;
 }
 
 .nav-container{
@@ -29,17 +50,18 @@ h1 {
     justify-content: space-around;
 }
 
-.highscore {
-    font-size: 30px;
-}
-
 .answer-choice{
     font-size: 15px;
     border: 2px solid;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
+    background-color: #12a8a8;
+    color: white;
+    width: 50%;
 }
 
-.submit-score{
+.submit-container{
     border: 2px solid;
+    text-align: center;
+    /* background-color: #12a8a8; */
 }

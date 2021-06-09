@@ -40,21 +40,27 @@ function homeScreen() {
 
     timerContainer.setAttribute("style", "visibility: hidden;")
 
-    var quizHeader = document.createElement("h2");
+    var homeDiv = document.createElement("div");
+    homeDiv.setAttribute("class", "container");
+    quizContent.appendChild(homeDiv);
+
+    var quizHeader = document.createElement("h1");
     quizHeader.textContent = "JavaScript Quiz for Beginners!";
-    quizContent.appendChild(quizHeader);
+    homeDiv.appendChild(quizHeader);
 
     var quizInst = document.createElement("p");
     quizInst.textContent = "You will have 1 minute to complete this quiz. However, for every question that you answer incorrectly, 10 seconds will be deducted from your time. You will get one point for every answer you get right. Are you ready?"
-    quizContent.appendChild(quizInst);
+    homeDiv.appendChild(quizInst);
 
     var startQuizButton = document.createElement("button");
-    startQuizButton.textContent = "Start Quiz!"
-    quizContent.appendChild(startQuizButton);
+    startQuizButton.textContent = "Start Quiz!";
+    startQuizButton.setAttribute("class", "btn");
+    homeDiv.appendChild(startQuizButton);
 
     var highScoreButton = document.createElement("button");
-    highScoreButton.textContent = "High Scores"
-    quizContent.appendChild(highScoreButton);
+    highScoreButton.textContent = "High Scores";
+    highScoreButton.setAttribute("class", "btn");
+    homeDiv.appendChild(highScoreButton);
 
     highScoreButton.addEventListener("click", showHighScores);
 
@@ -98,19 +104,24 @@ function showQuestion() {
     clearContent();
 
     if (questionNum < questionObjs.length) {
+        var quizDiv = document.createElement("div");
+        quizDiv.setAttribute("class", "container")
+        quizContent.appendChild(quizDiv);
+
+
         var question = document.createElement('h2');
         question.textContent = questionObjs[questionNum].question;
-        quizContent.appendChild(question);
+        quizDiv.appendChild(question);
 
         var answerChoices = document.createElement('ul');
-        quizContent.appendChild(answerChoices);
+        quizDiv.appendChild(answerChoices);
 
 
         for (i = 0; i < 4; i++) {
-            var answersEl = document.createElement('li');
-            answersEl.textContent = questionObjs[questionNum].choices[i];
-            answersEl.setAttribute("class", "answer-choice");
-            answerChoices.appendChild(answersEl);
+            var answers = document.createElement('li');
+            answers.textContent = questionObjs[questionNum].choices[i];
+            answers.setAttribute("class", "answer-choice");
+            answerChoices.appendChild(answers);
         }
 
         answerChoices.addEventListener('click', function() {
@@ -150,13 +161,14 @@ function checkAnswer() {
 
 function endGame() {
     quizContent.innerHTML="";
+    timerContainer.setAttribute("style", "visibility: hidden;")
 
     var submitContainer = document.createElement("div");
-    submitContainer.setAttribute("class", "submit-score");
+    submitContainer.setAttribute("class", "submit-container");
     quizContent.appendChild(submitContainer);
 
     var endGameHeader = document.createElement("h2");
-    endGameHeader.textContent = "The quiz is now over! Please enter your initials:"
+    endGameHeader.textContent = "The quiz is now over! Please enter your initials below"
     submitContainer.appendChild(endGameHeader);
 
     var initialsLabelEl = document.createElement("label");
@@ -170,6 +182,7 @@ function endGame() {
 
     var submitButtonEl = document.createElement("button");
     submitButtonEl.setAttribute("id", "submitBtn");
+    submitButtonEl.setAttribute("class", "btn");
     submitButtonEl.textContent = "Submit"
 
     submitContainer.appendChild(initialsLabelEl);
@@ -198,6 +211,7 @@ function showHighScores() {
     clearContent();
 
     var scoresContainer = document.createElement("div");
+    scoresContainer.setAttribute("class", "scores-container");
     quizContent.appendChild(scoresContainer);
     
     var scoresHeader = document.createElement("h2");
@@ -226,6 +240,7 @@ function showHighScores() {
 
     var returnHomeButton = document.createElement("button");
     returnHomeButton.textContent = "Go Back";
+    returnHomeButton.setAttribute("class", "btn");
     quizContent.appendChild(returnHomeButton);
 
     returnHomeButton.addEventListener("click", function() {
