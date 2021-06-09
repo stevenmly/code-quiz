@@ -9,8 +9,13 @@ This application tests users on beginner level JavaScript concepts. Users will h
 * JavaScript
 
 ## Screenshots
+![Application-screenshot](./assets/images/screenshot1.png)
+![Application-screenshot](./assets/images/screenshot2.png)
+![Application-screenshot](./assets/images/screenshot3.png)
+
 
 ## Website
+https://stevenmly.github.io/code-quiz/
 
 ## Contribution
 Made with ❤️ by Steven Ly
