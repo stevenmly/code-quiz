@@ -6,12 +6,12 @@ questionObjs = [
     },
     {
         question: "Which of these variables correctly represents camel casing?",
-        choices: ["var = TimeLeft","var = timeleft","var = timeLeft","var = Timeleft"],
+        choices: ["var = timeLeft","var = timeleft","var = TimeLeft","var = Timeleft"],
         answer: "var = timeLeft"
     },
     {
         question: "Which one of these is NOT a  primitive data type in JavaScript?",
-        choices: ["Number", "String", "Object", "Boolean"],
+        choices: ["Number", "String", "Boolean", "Object"],
         answer: "Object"
     },
     {
@@ -21,11 +21,10 @@ questionObjs = [
     }
 ]
 
+var timerContainer = document.querySelector("#timer-container")
 var timerEl = document.querySelector("#timer");
 var scoreEL = document.querySelector("#score");
-var startButtonEL = document.querySelector("#start-btn");
-var quizQuestionsEl = document.querySelector("#quiz-container");
-var mainEl = document.querySelector("#main");
+var quizContent = document.querySelector("#quiz-content");
 
 // global variables
 var timer = 0;
@@ -33,6 +32,34 @@ var score = 0;
 var questionNum = 0;
 var currentTime;
 var highScoreList = [];
+
+
+function homeScreen() {
+    clearContent();
+    reset();
+
+    timerContainer.setAttribute("style", "visibility: hidden;")
+
+    var quizHeader = document.createElement("h2");
+    quizHeader.textContent = "JavaScript Quiz for Beginners!";
+    quizContent.appendChild(quizHeader);
+
+    var quizInst = document.createElement("p");
+    quizInst.textContent = "You will have 1 minute to complete this quiz. However, for every question that you answer incorrectly, 10 seconds will be deducted from your time. You will get one point for every answer you get right. Are you ready?"
+    quizContent.appendChild(quizInst);
+
+    var startQuizButton = document.createElement("button");
+    startQuizButton.textContent = "Start Quiz!"
+    quizContent.appendChild(startQuizButton);
+
+    var highScoreButton = document.createElement("button");
+    highScoreButton.textContent = "High Scores"
+    quizContent.appendChild(highScoreButton);
+
+    highScoreButton.addEventListener("click", showHighScores);
+
+    startQuizButton.addEventListener("click", startQuiz);
+}
 
 // function to start quiz
 function startQuiz() {
@@ -44,6 +71,9 @@ function startQuiz() {
 }
 
 function startTimer() {
+
+    timerContainer.setAttribute("style", "visibility: visible;")
+
     currentTime = setInterval(function() {
         if (timer > 0) {
             timerEl.textContent = timer;
@@ -57,17 +87,23 @@ function startTimer() {
     }, 1000);
 }
 
+function reset() {
+    score = 0;
+    timer = 60;
+    questionNum = 0
+}
+
 function showQuestion() {
 
-    newQuestion();
+    clearContent();
 
     if (questionNum < questionObjs.length) {
         var question = document.createElement('h2');
         question.textContent = questionObjs[questionNum].question;
-        quizQuestionsEl.appendChild(question);
+        quizContent.appendChild(question);
 
         var answerChoices = document.createElement('ul');
-        quizQuestionsEl.appendChild(answerChoices);
+        quizContent.appendChild(answerChoices);
 
 
         for (i = 0; i < 4; i++) {
@@ -91,8 +127,8 @@ function showQuestion() {
     }
 }
 
-function newQuestion() {
-    quizQuestionsEl.innerHTML="";
+function clearContent() {
+    quizContent.innerHTML="";
 }
 
 function checkAnswer() {
@@ -101,7 +137,7 @@ function checkAnswer() {
     if (selectEl.innerHTML === questionObjs[questionNum].answer) {
         console.log("Correct answer!")
         score++;
-        scoreEL.textContent = score;
+        console.log(score);
     }
      
     
@@ -113,15 +149,15 @@ function checkAnswer() {
 }
 
 function endGame() {
-    mainEl.innerHTML="";
+    quizContent.innerHTML="";
 
-    var submitContainerEl = document.createElement("div");
-    submitContainerEl.setAttribute("class", "submit-score");
-    mainEl.appendChild(submitContainerEl);
+    var submitContainer = document.createElement("div");
+    submitContainer.setAttribute("class", "submit-score");
+    quizContent.appendChild(submitContainer);
 
     var endGameHeader = document.createElement("h2");
-    endGameHeader.textContent = "The quiz is now over! Please enter your initials"
-    submitContainerEl.appendChild(endGameHeader);
+    endGameHeader.textContent = "The quiz is now over! Please enter your initials:"
+    submitContainer.appendChild(endGameHeader);
 
     var initialsLabelEl = document.createElement("label");
     initialsLabelEl.setAttribute("for","userInitials");
@@ -136,9 +172,9 @@ function endGame() {
     submitButtonEl.setAttribute("id", "submitBtn");
     submitButtonEl.textContent = "Submit"
 
-    submitContainerEl.appendChild(initialsLabelEl);
-    submitContainerEl.appendChild(initialsInputEl);
-    submitContainerEl.appendChild(submitButtonEl); 
+    submitContainer.appendChild(initialsLabelEl);
+    submitContainer.appendChild(initialsInputEl);
+    submitContainer.appendChild(submitButtonEl); 
 
     var quizScore = {initials: "input", score: score}
 
@@ -155,13 +191,14 @@ function endGame() {
         showHighScores();
     })
     
+    clearInterval(currentTime);
 }
 
 function showHighScores() {
-    mainEl.innerHTML="";
+    clearContent();
 
     var scoresContainer = document.createElement("div");
-    mainEl.appendChild(scoresContainer);
+    quizContent.appendChild(scoresContainer);
     
     var scoresHeader = document.createElement("h2");
     scoresHeader.textContent = "High Scores: ";
@@ -187,10 +224,17 @@ function showHighScores() {
         }
     }
 
+    var returnHomeButton = document.createElement("button");
+    returnHomeButton.textContent = "Go Back";
+    quizContent.appendChild(returnHomeButton);
+
+    returnHomeButton.addEventListener("click", function() {
+        homeScreen();
+    })
 }
 
-startButtonEL.addEventListener("click", startQuiz);
 
+homeScreen();
 
 
 
