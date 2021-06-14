@@ -1,3 +1,4 @@
+// object for quiz questions, choices, and answer
 questionObjs = [
     {
         question: "What is the correct way to implement comments in JavaScript?",
@@ -34,7 +35,7 @@ var questionNum = 0;
 var currentTime;
 var highScoreList = [];
 
-
+// Screen that users will see when they first land on page
 function homeScreen() {
     clearContent();
     clearResponses();
@@ -78,6 +79,7 @@ function startQuiz() {
     
 }
 
+// start game timer
 function startTimer() {
 
     timerContainer.setAttribute("style", "visibility: visible;")
@@ -95,12 +97,14 @@ function startTimer() {
     }, 1000);
 }
 
+// reset score, time, and questionNum 
 function reset() {
     score = 0;
     timer = 60;
     questionNum = 0
 }
 
+// Add answer choices to list
 function showQuestion() {
 
     clearContent();
@@ -148,6 +152,7 @@ function clearResponses() {
     responseContainer.innerHTML="";
 }
 
+// check if question was answered correctly
 function checkAnswer() {
     var selectEl = event.target;
 
@@ -174,6 +179,7 @@ function checkAnswer() {
 
 }
 
+// runs at the end of quiz for initial and score submission
 function endGame() {
     clearContent();
     clearResponses();
@@ -224,6 +230,7 @@ function endGame() {
     clearInterval(currentTime);
 }
 
+// highscores page
 function showHighScores() {
     clearContent();
 
@@ -265,7 +272,7 @@ function showHighScores() {
     })
 }
 
-
+//call function 
 homeScreen();
 
 
